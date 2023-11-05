@@ -17,6 +17,8 @@ public class DrawingUIController {
     ColourSelector cSel = new ColourSelector();
     CircleDimsSelector circleDims = new CircleDimsSelector();
     RectDimsSelector rectDims = new RectDimsSelector();
+    SquareDimsSelector squareDims = new SquareDimsSelector();
+    ShapeCounter shapeCounter = new ShapeCounter();
 
     public DrawingUIController() {
         // Initialize panels with their respective layouts
@@ -25,10 +27,13 @@ public class DrawingUIController {
 
         mainPanel.add(controlsPanel);
         mainPanel.add(drawing);
+        controlsPanel.add(rectDims);
+        controlsPanel.add(circleDims);
+        controlsPanel.add(squareDims);
         controlsPanel.add(sSel);
         controlsPanel.add(cSel);
-        controlsPanel.add(circleDims);
-        controlsPanel.add(rectDims);
+        controlsPanel.add(shapeCounter);
+
 
         drawing.addMouseListener(new MouseListener() {
             @Override
@@ -40,13 +45,16 @@ public class DrawingUIController {
 
                 if (sSel.getCurrentShape().equals("Circle")) {
                 Circle circle = new Circle(circleDims.getCurrentRadius(), e.getPoint(), cSel.getCurrentColour());
-                drawing.addCircleDB(circle);}
+                drawing.addCircleDB(circle);
+                shapeCounter.addCircle();}
                 if (sSel.getCurrentShape().equals("Rectangle")) {
                     Rect rect = new Rect(rectDims.getCurrentWidth(), rectDims.getCurrentHeight(), e.getPoint(), cSel.getCurrentColour());
-                    drawing.addRectDB(rect);}
+                    drawing.addRectDB(rect);
+                shapeCounter.addRect();}
                 if (sSel.getCurrentShape().equals("Square")) {
-                    Square square = new Square(10, 10, e.getPoint(), cSel.getCurrentColour());
-                    drawing.addRectDB(square);}
+                    Square square = new Square(squareDims.getCurrentwidth(), squareDims.getCurrentwidth(), e.getPoint(), cSel.getCurrentColour());
+                    drawing.addRectDB(square);
+                shapeCounter.addSquare();}
                 drawing.repaint();
             }
             @Override
